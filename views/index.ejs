@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أسئلة السنوات السابقة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+
+        header {
+            background-color: #1877f2;
+            color: white;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin: 20px 0 20px 0;
+            display: flex;
+            gap: 10px;
+        }
+
+        #courseSelect {
+            flex: 3;
+        }
+
+        #sortSelect {
+            flex: 1;
+        }
+
+
+        select {
+            width: 100%;
+            height: 55px;
+            font-size: 16px;
+            border: 1px solid #040d18;
+            border-radius: 10px;
+            background-color: #f8f8f8;
+            color: #333;
+            cursor: pointer;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            /* إضافة هذه الخاصية */
+            text-align-last: center;
+            /* لضمان توسيط النص في Firefox */
+        }
+
+
+        select:focus {
+            outline: none;
+            border-color: #4a90e2;
+            box-shadow: 0 0 0 3px rgba(24, 119, 242, 0.2);
+            transform: translateY(-2px);
+        }
+
+        select option {
+            font-size: 16px;
+        }
+
+        select option:hover {
+            background-color: #f0f0f0;
+        }
+
+        select option:first-child {
+            color: #666;
+            font-style: italic;
+        }
+
+        select:hover {
+            border-color: #4a90e2;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+            font-weight: 700;
+        }
+
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .template-item {
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100px;
+            position: relative;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .template-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .template-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            transition: background 0.3s ease;
+        }
+
+        .template-item:hover::before {
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .template-item h3 {
+            color: white;
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: 700;
+            margin: 0;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        /* خلفيات القوالب */
+        /* جميع أنماط الخلفيات السابقة تبقى كما هي */
+        .template-item:nth-child(1) {
+            background-image: linear-gradient(45deg, rgba(26, 53, 85, 0.7), rgba(74, 144, 226, 0.7)),
+                repeating-linear-gradient(45deg, #212f3f 0%, #4a90e2 10%, transparent 10%, transparent 20%);
+        }
+
+        .template-item:nth-child(2) {
+            background-image: linear-gradient(45deg, rgba(231, 76, 60, 0.7), rgba(231, 76, 60, 0.7)),
+                repeating-linear-gradient(135deg, #e74c3c 0%, #e74c3c 10%, transparent 10%, transparent 20%);
+        }
+
+        .template-item:nth-child(3) {
+            background-image: linear-gradient(45deg, rgba(46, 204, 113, 0.7), rgba(46, 204, 113, 0.7)),
+                repeating-linear-gradient(90deg, #2ecc71 0%, #2ecc71 10%, transparent 10%, transparent 20%);
+        }
+
+        .template-item:nth-child(4) {
+            background-image: linear-gradient(45deg, rgba(243, 156, 18, 0.7), rgba(243, 156, 18, 0.7)),
+                repeating-linear-gradient(60deg, #f39c12 0%, #f39c12 10%, transparent 10%, transparent 20%);
+        }
+
+        .template-item:nth-child(5) {
+            background-image: linear-gradient(45deg, rgba(155, 89, 182, 0.7), rgba(155, 89, 182, 0.7)),
+                repeating-linear-gradient(120deg, #9b59b6 0%, #9b59b6 10%, transparent 10%, transparent 20%);
+        }
+
+        .template-item:nth-child(6) {
+            background-image: linear-gradient(45deg, rgba(46, 204, 113, 0.7), rgba(46, 204, 113, 0.7)),
+                repeating-linear-gradient(90deg, #2ecc71 0%, #2ecc71 10%, transparent 10%, transparent 20%);
+        }
+
+        .template-item:nth-child(7) {
+            background-image: linear-gradient(45deg, rgba(74, 144, 226, 0.7), rgba(74, 144, 226, 0.7)),
+                repeating-linear-gradient(45deg, #4a90e2 0%, #4a90e2 10%, transparent 10%, transparent 20%);
+        }
+
+        .template-item:nth-child(8) {
+            background-image: linear-gradient(45deg, rgba(231, 76, 60, 0.7), rgba(231, 76, 60, 0.7)),
+                repeating-linear-gradient(135deg, #e74c3c 0%, #e74c3c 10%, transparent 10%, transparent 20%);
+        }
+
+        .template-item:nth-child(9) {
+            background-image: linear-gradient(45deg, rgba(46, 204, 113, 0.7), rgba(46, 204, 113, 0.7)),
+                repeating-linear-gradient(90deg, #2ecc71 0%, #2ecc71 10%, transparent 10%, transparent 20%);
+        }
+
+        .template-item:nth-child(10) {
+            background-image: linear-gradient(45deg, rgba(243, 156, 18, 0.7), rgba(243, 156, 18, 0.7)),
+                repeating-linear-gradient(60deg, #f39c12 0%, #f39c12 10%, transparent 10%, transparent 20%);
+        }
+
+        .template-item:nth-child(11) {
+            background-image: linear-gradient(45deg, rgba(155, 89, 182, 0.7), rgba(155, 89, 182, 0.7)),
+                repeating-linear-gradient(120deg, #9b59b6 0%, #9b59b6 10%, transparent 10%, transparent 20%);
+        }
+
+        .template-item:nth-child(12) {
+            background-image: linear-gradient(45deg, rgba(46, 204, 113, 0.7), rgba(46, 204, 113, 0.7)),
+                repeating-linear-gradient(90deg, #2ecc71 0%, #2ecc71 10%, transparent 10%, transparent 20%);
+        }
+
+        .template-item:nth-child(13) {
+            background-image: linear-gradient(45deg, rgba(74, 144, 226, 0.7), rgba(74, 144, 226, 0.7)),
+                repeating-linear-gradient(45deg, #4a90e2 0%, #4a90e2 10%, transparent 10%, transparent 20%);
+        }
+
+        .template-item:nth-child(14) {
+            background-image: linear-gradient(45deg, rgba(231, 76, 60, 0.7), rgba(231, 76, 60, 0.7)),
+                repeating-linear-gradient(135deg, #e74c3c 0%, #e74c3c 10%, transparent 10%, transparent 20%);
+        }
+
+        .template-item:nth-child(15) {
+            background-image: linear-gradient(45deg, rgba(46, 204, 113, 0.7), rgba(46, 204, 113, 0.7)),
+                repeating-linear-gradient(90deg, #2ecc71 0%, #2ecc71 10%, transparent 10%, transparent 20%);
+        }
+
+        .template-item:nth-child(16) {
+            background-image: linear-gradient(45deg, rgba(243, 156, 18, 0.7), rgba(243, 156, 18, 0.7)),
+                repeating-linear-gradient(60deg, #f39c12 0%, #f39c12 10%, transparent 10%, transparent 20%);
+        }
+
+        .template-item:nth-child(17) {
+            background-image: linear-gradient(45deg, rgba(155, 89, 182, 0.7), rgba(155, 89, 182, 0.7)),
+                repeating-linear-gradient(120deg, #9b59b6 0%, #9b59b6 10%, transparent 10%, transparent 20%);
+        }
+
+        .template-item:nth-child(18) {
+            background-image: linear-gradient(45deg, rgba(46, 204, 113, 0.7), rgba(46, 204, 113, 0.7)),
+                repeating-linear-gradient(90deg, #2ecc71 0%, #2ecc71 10%, transparent 10%, transparent 20%);
+        }
+
+        .template-item:nth-child(19) {
+            background-image: linear-gradient(45deg, rgba(74, 144, 226, 0.7), rgba(74, 144, 226, 0.7)),
+                repeating-linear-gradient(45deg, #4a90e2 0%, #4a90e2 10%, transparent 10%, transparent 20%);
+        }
+
+        .template-item:nth-child(20) {
+            background-image: linear-gradient(45deg, rgba(231, 76, 60, 0.7), rgba(231, 76, 60, 0.7)),
+                repeating-linear-gradient(135deg, #e74c3c 0%, #e74c3c 10%, transparent 10%, transparent 20%);
+        }
+
+        .template-item:nth-child(21) {
+            background-image: linear-gradient(45deg, rgba(46, 204, 113, 0.7), rgba(46, 204, 113, 0.7)),
+                repeating-linear-gradient(90deg, #2ecc71 0%, #2ecc71 10%, transparent 10%, transparent 20%);
+        }
+
+        .template-item:nth-child(22) {
+            background-image: linear-gradient(45deg, rgba(243, 156, 18, 0.7), rgba(243, 156, 18, 0.7)),
+                repeating-linear-gradient(60deg, #f39c12 0%, #f39c12 10%, transparent 10%, transparent 20%);
+        }
+
+        .template-item:nth-child(23) {
+            background-image: linear-gradient(45deg, rgba(155, 89, 182, 0.7), rgba(155, 89, 182, 0.7)),
+                repeating-linear-gradient(120deg, #9b59b6 0%, #9b59b6 10%, transparent 10%, transparent 20%);
+        }
+
+        .template-item:nth-child(24) {
+            background-image: linear-gradient(45deg, rgba(46, 204, 113, 0.7), rgba(46, 204, 113, 0.7)),
+                repeating-linear-gradient(90deg, #2ecc71 0%, #2ecc71 10%, transparent 10%, transparent 20%);
+        }
+
+        .template-item:nth-child(25) {
+            background-image: linear-gradient(45deg, rgba(26, 53, 85, 0.7), rgba(74, 144, 226, 0.7)),
+                repeating-linear-gradient(45deg, #212f3f 0%, #4a90e2 10%, transparent 10%, transparent 20%);
+        }
+
+        .template-item:nth-child(26) {
+            background-image: linear-gradient(45deg, rgba(231, 76, 60, 0.7), rgba(231, 76, 60, 0.7)),
+                repeating-linear-gradient(135deg, #e74c3c 0%, #e74c3c 10%, transparent 10%, transparent 20%);
+        }
+
+        .template-item:nth-child(27) {
+            background-image: linear-gradient(45deg, rgba(46, 204, 113, 0.7), rgba(46, 204, 113, 0.7)),
+                repeating-linear-gradient(90deg, #2ecc71 0%, #2ecc71 10%, transparent 10%, transparent 20%);
+        }
+
+        .template-item:nth-child(28) {
+            background-image: linear-gradient(45deg, rgba(243, 156, 18, 0.7), rgba(243, 156, 18, 0.7)),
+                repeating-linear-gradient(60deg, #f39c12 0%, #f39c12 10%, transparent 10%, transparent 20%);
+        }
+
+        .template-item:nth-child(29) {
+            background-image: linear-gradient(45deg, rgba(155, 89, 182, 0.7), rgba(155, 89, 182, 0.7)),
+                repeating-linear-gradient(120deg, #9b59b6 0%, #9b59b6 10%, transparent 10%, transparent 20%);
+        }
+
+        .template-item:nth-child(30) {
+            background-image: linear-gradient(45deg, rgba(46, 204, 113, 0.7), rgba(46, 204, 113, 0.7)),
+                repeating-linear-gradient(90deg, #2ecc71 0%, #2ecc71 10%, transparent 10%, transparent 20%);
+        }
+
+        .template-item:nth-child(31) {
+            background-image: linear-gradient(45deg, rgba(74, 144, 226, 0.7), rgba(74, 144, 226, 0.7)),
+                repeating-linear-gradient(45deg, #4a90e2 0%, #4a90e2 10%, transparent 10%, transparent 20%);
+        }
+
+        .template-item:nth-child(32) {
+            background-image: linear-gradient(45deg, rgba(231, 76, 60, 0.7), rgba(231, 76, 60, 0.7)),
+                repeating-linear-gradient(135deg, #e74c3c 0%, #e74c3c 10%, transparent 10%, transparent 20%);
+        }
+
+        .template-item:nth-child(33) {
+            background-image: linear-gradient(45deg, rgba(46, 204, 113, 0.7), rgba(46, 204, 113, 0.7)),
+                repeating-linear-gradient(90deg, #2ecc71 0%, #2ecc71 10%, transparent 10%, transparent 20%);
+        }
+
+        .template-item:nth-child(34) {
+            background-image: linear-gradient(45deg, rgba(243, 156, 18, 0.7), rgba(243, 156, 18, 0.7)),
+                repeating-linear-gradient(60deg, #f39c12 0%, #f39c12 10%, transparent 10%, transparent 20%);
+        }
+
+        .template-item:nth-child(35) {
+            background-image: linear-gradient(45deg, rgba(155, 89, 182, 0.7), rgba(155, 89, 182, 0.7)),
+                repeating-linear-gradient(120deg, #9b59b6 0%, #9b59b6 10%, transparent 10%, transparent 20%);
+        }
+
+        .template-item:nth-child(36) {
+            background-image: linear-gradient(45deg, rgba(46, 204, 113, 0.7), rgba(46, 204, 113, 0.7)),
+                repeating-linear-gradient(90deg, #2ecc71 0%, #2ecc71 10%, transparent 10%, transparent 20%);
+        }
+
+        .template-item:nth-child(37) {
+            background-image: linear-gradient(45deg, rgba(74, 144, 226, 0.7), rgba(74, 144, 226, 0.7)),
+                repeating-linear-gradient(45deg, #4a90e2 0%, #4a90e2 10%, transparent 10%, transparent 20%);
+        }
+
+        .template-item:nth-child(38) {
+            background-image: linear-gradient(45deg, rgba(231, 76, 60, 0.7), rgba(231, 76, 60, 0.7)),
+                repeating-linear-gradient(135deg, #e74c3c 0%, #e74c3c 10%, transparent 10%, transparent 20%);
+        }
+
+        .template-item:nth-child(39) {
+            background-image: linear-gradient(45deg, rgba(46, 204, 113, 0.7), rgba(46, 204, 113, 0.7)),
+                repeating-linear-gradient(90deg, #2ecc71 0%, #2ecc71 10%, transparent 10%, transparent 20%);
+        }
+
+        .template-item:nth-child(40) {
+            background-image: linear-gradient(45deg, rgba(243, 156, 18, 0.7), rgba(243, 156, 18, 0.7)),
+                repeating-linear-gradient(60deg, #f39c12 0%, #f39c12 10%, transparent 10%, transparent 20%);
+        }
+
+        .template-item:nth-child(41) {
+            background-image: linear-gradient(45deg, rgba(155, 89, 182, 0.7), rgba(155, 89, 182, 0.7)),
+                repeating-linear-gradient(120deg, #9b59b6 0%, #9b59b6 10%, transparent 10%, transparent 20%);
+        }
+
+        .template-item:nth-child(42) {
+            background-image: linear-gradient(45deg, rgba(46, 204, 113, 0.7), rgba(46, 204, 113, 0.7)),
+                repeating-linear-gradient(90deg, #2ecc71 0%, #2ecc71 10%, transparent 10%, transparent 20%);
+        }
+
+        .template-item:nth-child(43) {
+            background-image: linear-gradient(45deg, rgba(74, 144, 226, 0.7), rgba(74, 144, 226, 0.7)),
+                repeating-linear-gradient(45deg, #4a90e2 0%, #4a90e2 10%, transparent 10%, transparent 20%);
+        }
+
+        .template-item:nth-child(44) {
+            background-image: linear-gradient(45deg, rgba(231, 76, 60, 0.7), rgba(231, 76, 60, 0.7)),
+                repeating-linear-gradient(135deg, #e74c3c 0%, #e74c3c 10%, transparent 10%, transparent 20%);
+        }
+
+        .template-item:nth-child(45) {
+            background-image: linear-gradient(45deg, rgba(46, 204, 113, 0.7), rgba(46, 204, 113, 0.7)),
+                repeating-linear-gradient(90deg, #2ecc71 0%, #2ecc71 10%, transparent 10%, transparent 20%);
+        }
+
+        .template-item:nth-child(46) {
+            background-image: linear-gradient(45deg, rgba(243, 156, 18, 0.7), rgba(243, 156, 18, 0.7)),
+                repeating-linear-gradient(60deg, #f39c12 0%, #f39c12 10%, transparent 10%, transparent 20%);
+        }
+
+        .template-item:nth-child(47) {
+            background-image: linear-gradient(45deg, rgba(155, 89, 182, 0.7), rgba(155, 89, 182, 0.7)),
+                repeating-linear-gradient(120deg, #9b59b6 0%, #9b59b6 10%, transparent 10%, transparent 20%);
+        }
+
+        .template-item:nth-child(48) {
+            background-image: linear-gradient(45deg, rgba(46, 204, 113, 0.7), rgba(46, 204, 113, 0.7)),
+                repeating-linear-gradient(90deg, #2ecc71 0%, #2ecc71 10%, transparent 10%, transparent 20%);
+        }
+
+        /* ... باقي خلفيات القوالب تبقى كما هي ... */
+
+        @media screen and (max-width: 768px) {
+            .form-group {
+                display: flex;
+                flex-direction: row;
+                gap: 10px;
+            }
+
+            select {
+                padding: 12px;
+                font-size: 14px;
+            }
+
+            #courseSelect {
+                flex: 4;
+            }
+
+            #sortSelect {
+                flex: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>اسئلة السنوات السابقة</h1>
+
+        <div class="form-group">
+            <select id="courseSelect" onchange="updateResults()" name="courseSelect" required>
+                <option value="">كل الاقسام</option>
+                <%specialization.forEach(function(course) {%>
+                    <option value="<%=course.id%>" <%=course.id==selectedSpec ? 'selected' : '' %>
+                        >
+                        <%=course.name_ar%>
+                    </option>
+                    <%});%>
+            </select>
+
+            <select id="sortSelect" onchange="updateResults()" name="sortSelect">
+               
+                <option value="asc"  <%=sortType=='asc' ? 'selected' : '' %> >أ-ي</option>
+                <option value="desc"  <%=sortType=='desc' ? 'selected' : '' %> >ي-أ</option>
+                <!-- <option value="dateAsc">الأقدم</option>
+                <option value="dateDesc">الأحدث</option> -->
+            </select>
+        </div>
+
+        <div class="template-grid">
+            <% result.forEach(function(item) { %>
+                <div class="template-item" onclick="goToViewExams('<%= item.id %>')">
+                    <h3>
+                        <%= item.name_ar %>
+                    </h3>
+                </div>
+                <% }); %>
+        </div>
+    </div>
+
+    <script>
+        function updateResults() {
+            const specializationSelect = document.getElementById('courseSelect');
+            const sortSelect = document.getElementById('sortSelect');
+
+            const spec_id = specializationSelect.value;
+            const sort = sortSelect.value;
+
+            const url = new URL(window.location.href);
+            url.searchParams.set('spec_id', spec_id);
+            url.searchParams.set('sort', sort);
+
+            window.location.href = url.toString();
+        }
+        function goToViewExams(itemId) {
+            window.location.href = '/view-exams?id=' + itemId;
+        }
+    </script>
+</body>
+
+</html>
