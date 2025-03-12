@@ -5,7 +5,7 @@ const multer = require('multer');
 const axios = require('axios');
 const FormData = require('form-data');
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -75,19 +75,22 @@ app.post('/upload-post', upload.single('image'), async (req, res) => {
 app.get('/get-posts', async (req, res) => {
     try {
         const [posts] = await pool.execute(
-            'SELECT * FROM posts '
+            'SELECT * FROM posts'
         );
         console.log(posts)
-        res.json({ 
-            success: true, 
-            data: posts 
-        });
+        res.render('get-posts', { 'posts': posts })
+
+        // console.log(posts)
+        // res.json({
+        //     success: true,
+        //     data: posts
+        // });
 
     } catch (error) {
         console.error('خطأ:', error);
-        res.status(500).json({ 
-            success: false, 
-            message: 'حدث خطأ أثناء جلب المنشورات' 
+        res.status(500).json({
+            success: false,
+            message: 'حدث خطأ أثناء جلب المنشورات'
         });
     }
 });
