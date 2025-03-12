@@ -75,16 +75,16 @@ app.post('/upload-post', upload.single('image'), async (req, res) => {
 app.get('/get-posts', async (req, res) => {
     try {
         const [posts] = await pool.execute(
-            'SELECT * FROM posts'
+             'SELECT * FROM posts ORDER BY created_at DESC;'
         );
         // console.log(posts)
-        // res.render('get-posts', { 'posts': posts })
+        res.render('get-posts', { 'posts': posts })
 
         // console.log(posts)
-        res.json({
-            success: true,
-            data: posts
-        });
+        // res.json({
+        //     success: true,
+        //     data: posts
+        // });
 
     } catch (error) {
         console.error('خطأ:', error);
