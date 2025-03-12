@@ -77,14 +77,14 @@ app.get('/get-posts', async (req, res) => {
         const [posts] = await pool.execute(
             'SELECT * FROM posts'
         );
-        console.log(posts)
-        res.render('get-posts', { 'posts': posts })
+        // console.log(posts)
+        // res.render('get-posts', { 'posts': posts })
 
         // console.log(posts)
-        // res.json({
-        //     success: true,
-        //     data: posts
-        // });
+        res.json({
+            success: true,
+            data: posts
+        });
 
     } catch (error) {
         console.error('خطأ:', error);
