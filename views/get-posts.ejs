@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>معرض الصور</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <div class="grid gap-6">
+            <% posts.forEach((element, index) => { %>
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <!-- صورة العنصر -->
+                        <div class="relative h-64 md:h-full">
+                            <img 
+                                src="<%= element['url'] %>" 
+                                alt="صورة"
+                                class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                                onclick="openModal(this.src)"
+                            >
+                        </div>
+                        
+                        <!-- وصف العنصر -->
+                        <div class="p-6">
+                            <p class="text-gray-700 text-lg leading-relaxed">
+                                <%= element['desc'] %>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+
+    <!-- Modal لعرض الصورة بالحجم الكامل -->
+    <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-75 hidden flex items-center justify-center z-50">
+        <div class="relative max-w-4xl w-full mx-4">
+            <img id="modalImage" src="" alt="صورة كبيرة" class="max-h-[90vh] w-full object-contain">
+            <button 
+                onclick="closeModal()" 
+                class="absolute top-4 left-4 bg-white rounded-full p-2 text-gray-800 hover:bg-gray-200"
+            >
+                ✕
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function openModal(imgSrc) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            modal.classList.remove('hidden');
+            modalImg.src = imgSrc;
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // إغلاق Modal عند النقر خارج الصورة
+        document.getElementById('imageModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
